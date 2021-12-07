@@ -22,7 +22,6 @@ struct Mac final {
 	// casting operator
 	explicit operator uint8_t*() const { return const_cast<uint8_t*>(mac_); }
 	explicit operator std::string() const;
-	explicit operator std::string() const;
 
 	// comparison operator
 	bool operator == (const Mac& r) const { return memcmp(mac_, r.mac_, SIZE) == 0; }

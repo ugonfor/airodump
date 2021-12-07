@@ -26,6 +26,9 @@ int main(int argc, char const *argv[])
 		return -1;
 	}
 
+    thread* t_print_data = new  thread(print_data);
+    t_print_data->detach();
+    
     while(true){
         struct pcap_pkthdr* header;
         const u_char* packet;
@@ -39,7 +42,7 @@ int main(int argc, char const *argv[])
         airodump((u_char*)packet, header->caplen, mon);
 
         //memdump((uint8_t*)packet, 0xff);
-		printf("%u bytes captured\n", header->caplen);
+		//printf("%u bytes captured\n", header->caplen);
     }
 
     pcap_close(pcap);

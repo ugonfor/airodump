@@ -3,12 +3,19 @@
 #include "utils.h"
 
 void print_data(void){
-    cout << "BSSID              PWR  Beacons    ESSID\n";
-    
-    for (auto it = BeaconData.begin(); it != BeaconData.end(); it++)
-    {   
-        cout << it->first << 0x100 - it->second.PWR << " " 
-            << it->second.BeaconCnt << " " << it->second.ESSID << "\n";        
+    while (true)
+    {
+        cout << "BSSID              PWR  Beacons    ESSID\n";
+        
+        for (auto it = BeaconData.begin(); it != BeaconData.end(); it++)
+        {   
+            cout << string(it->first).c_str() << "  -"<< (0x100 - it->second.PWR) << "  " 
+                << it->second.BeaconCnt << "\t   " << it->second.ESSID << "\n";        
+        }
+        
+        this_thread::sleep_for(chrono::milliseconds(100));
+
+        clear();
     }
     
 }
@@ -48,8 +55,6 @@ void airodump(u_char* packet, uint32_t caplen, Mon mon){
         BeaconData[BSSID].BeaconCnt++;
         BeaconData[BSSID].PWR = PWR;
     }
-
-    print_data();
 
     return ;
 }
